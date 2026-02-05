@@ -1,24 +1,24 @@
 # Pretrained 3D Foundation Models for Airfoil Surrogate Modeling
 
-This repository implements a decoupled learning strategy to accelerate aerodynamic design. By leveraging **3D Foundation Models** (PointNet and PointMAE) pretrained on ShapeNet, we extract geometric features to improve the accuracy of CFD surrogate models, specifically for **surface pressure prediction**.
+This repository implements a decoupled learning strategy to accelerate aerodynamic design. By leveraging 3D Foundation Models (PointNet and PointMAE) pretrained on ShapeNet, we extract geometric features to improve the accuracy of CFD surrogate models, specifically for surface pressure prediction.
 
 ## Key Features
 
 * **Decoupled Learning:** Uses frozen 3D encoders to extract geometric priors, reducing reliance on expensive labeled CFD data.
-* **Geometric Alignment:** Strategies to bridge the gap between 2D airfoils and 3D vision models including **3D Extrusion**, Torus Embedding, and Optimal Transport.
+* **Geometric Alignment:** Strategies to bridge the gap between 2D airfoils and 3D vision models including 3D Extrusion, Torus Embedding, and Optimal Transport.
 * **Adaptive Fusion:** A learned gating mechanism that dynamically modulates the influence of global context based on local point requirements.
 * **Benchmarking:** Evaluated across four baseline architectures: MLP, GraphSAGE, Graph U-Net, and PointNet.
 
 ## Core Findings
 * **Latent Space Relevance:** t-SNE visualizations confirm that these models inherently encode physical properties such as thickness, area, and camber.
-* **Performance Gains:** Reconstruction-based pretraining (PointMAE) combined with 3D extrusion yields performance gains of up to **35%**.
+* **Performance Gains:** Reconstruction-based pretraining (PointMAE) combined with 3D extrusion yields performance gains of up to 35%.
 * **Pretraining Objectives:** PointMAE (reconstruction) provides a more descriptive and continuous representation of the airfoil manifold compared to PointNet (classification).
 ![alt text](pngs/resAll.png)
 ![alt text](pngs/tsne.png)
 ## Methodology
 
 ### 1. Geometric Alignment
-To resolve the topological mismatch between 2D contours and 3D volumes, we employ **3D Extrusion**. This process involves computing the convex hull and sampling points to create depth, effectively aligning the data with the ShapeNet distribution.
+To resolve the topological mismatch between 2D contours and 3D volumes, we employ 3D Extrusion. This process involves computing the convex hull and sampling points to create depth, effectively aligning the data with the ShapeNet distribution.
 
 ### 2. System Architecture
 The pipeline consists of a frozen 3D encoder, a gated fusion mechanism, and a downstream surrogate decoder.
