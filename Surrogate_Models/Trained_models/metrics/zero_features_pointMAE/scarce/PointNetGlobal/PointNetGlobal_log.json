@@ -1,0 +1,32 @@
+[
+  {
+    "task": "pressure_surface_only",
+    "loss": "MSE",
+    "nb_parameters": 153593.0,
+    "time_elapsed": 400.1447808742523,
+    "hparams": {
+      "encoder": [
+        7,
+        64,
+        64,
+        8
+      ],
+      "decoder": [
+        8,
+        64,
+        64,
+        1
+      ],
+      "base_nb": 8,
+      "batch_size": 1,
+      "nb_epochs": 500,
+      "lr": 0.001,
+      "subsampling": 32000,
+      "global_in": 1152,
+      "global_fuse": 8
+    },
+    "train_loss": 0.0004270286299288273,
+    "val_loss": 0.011956035261391662,
+    "test_mse_normalized": 0.016005869954824448
+  }
+]
