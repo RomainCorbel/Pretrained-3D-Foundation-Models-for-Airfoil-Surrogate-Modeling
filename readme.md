@@ -97,6 +97,6 @@ Navigate to the `Surrogate_Models` folder to train the downstream predictors. Th
 
 ## Author
 
-**Romain Corbel** Supervised by **Zhen Wei** **CV Lab, EPFL** and professor **Pascal Fua**
+**Romain Corbel** Supervised by **Zhen Wei** and professor **Pascal Fua**, **CV Lab, EPFL** 
 
 ```
