@@ -93,8 +93,7 @@ Run `pointmae_TSNE.ipynb` or `pointnet_TSNE.ipynb`. These notebooks process the 
 ### 4. Surrogate Training
 
 Navigate to the `Surrogate_Models` folder to train the downstream predictors. These notebooks load the pre-computed features from the `extracted_features/` folder and integrate them into the surrogate architectures.
-![alt text](pngs/fusion.png)
-
+![alt text](pngs/pipeline.png)
 
 ## Author
 
