@@ -5,7 +5,7 @@ This repository implements a decoupled learning strategy to accelerate aerodynam
 ## Key Features
 
 * **Decoupled Learning:** Uses frozen 3D encoders to extract geometric priors, reducing reliance on expensive labeled CFD data.
-* **Geometric Alignment:** Strategies to bridge the gap between 2D airfoils and 3D vision models including 3D Extrusion, Torus Embedding, and Optimal Transport.
+* **Geometric Alignment:** Strategies to bridge the gap between 2D airfoils and 3D foundation models including 3D Extrusion, Torus Embedding, and Optimal Transport.
 * **Adaptive Fusion:** A learned gating mechanism that dynamically modulates the influence of global context based on local point requirements.
 * **Benchmarking:** Evaluated across four baseline architectures: MLP, GraphSAGE, Graph U-Net, and PointNet.
 
@@ -17,12 +17,9 @@ This repository implements a decoupled learning strategy to accelerate aerodynam
 ![alt text](pngs/tsne.png)
 ## Methodology
 
-### 1. Geometric Alignment
-To resolve the topological mismatch between 2D contours and 3D volumes, we employ 3D Extrusion. This process involves computing the convex hull and sampling points to create depth, effectively aligning the data with the ShapeNet distribution.
-
-### 2. System Architecture
-The pipeline consists of a frozen 3D encoder, a gated fusion mechanism, and a downstream surrogate decoder.
-
+### 1. System Architecture
+The pipeline consists of a frozen 3D encoder, a gated fusion mechanism, and a downstream surrogate model.
+![alt text](pngs/pipeline.png)
 ### 3. Fusion Mechanism
 Global features $F_{global}$ are integrated with local features $F_{local}$ via a sigmoid-based gating mechanism:
 
@@ -36,7 +33,7 @@ $$F_{fused} = F_{local} + (G \odot F_{global})$$
 ### 1. Installation
 ```bash
 # Clone the repository
-git clone [https://github.com/RomainCorbel/Pretrained-3D-Foundation-Models-for-Airfoil-Surrogate-Modeling.git](https://github.com/RomainCorbel/Pretrained-3D-Foundation-Models-for-Airfoil-Surrogate-Modeling.git)
+git clone https://github.com/RomainCorbel/Pretrained-3D-Foundation-Models-for-Airfoil-Surrogate-Modeling.git
 
 # Install dependencies using anaconda
 conda env create -f environment.yml
@@ -59,7 +56,11 @@ The following datasets and pretrained models are required for the pipeline:
 
 The extraction process mimics the ShapeNet data structure to ensure compatibility with pretrained PointNet/PointMAE backbones without modifying their original codebase.
 
-#### Step A: Dataset Preparation & Transformation
+#### Step A: Domain Analysis
+
+Use `domain_analysis.ipynb` and `domain_analysis_foils.ipynb` to compare statistics between the AirfRANS and ShapeNet datasets and to generate reference point clouds for Optimal Transport (OT) mappings.
+
+#### Step B: Dataset Preparation & Transformation
 
 Use `build_shapenetlike_dataset.ipynb` to apply geometric transformations and generate a ShapeNet-compliant directory.
 
@@ -79,9 +80,7 @@ Use `build_shapenetlike_dataset.ipynb` to apply geometric transformations and ge
 | Extruded_default_thin_uniform | 50505050 |
 | Extruded_normalized_thin_uniform | 60606060 |
 
-#### Step B: Domain Analysis
-
-Use `domain_analysis.ipynb` and `domain_analysis_foils.ipynb` to compare statistics between the AirfRANS and ShapeNet datasets and to generate reference point clouds for Optimal Transport (OT) mappings.
+Note that our shapenelit_like_out3 folder can be directly downloaded from: https://epflch-my.sharepoint.com/:f:/g/personal/romain_corbel_epfl_ch/IgBn9laKTE0IRJejvn1ufCtIAYnZEzvCP56gGXAsG3M4o9o?e=lchNHA
 
 #### Step C: Feature Extraction
 
@@ -90,10 +89,10 @@ Run `pointmae_TSNE.ipynb` or `pointnet_TSNE.ipynb`. These notebooks process the 
 * **Output Folder**: `extracted_features/`
 * **Analysis**: `compare_tsne.ipynb` allows for the comparison of extracted airfoil features against the original ShapeNet distribution.
 
-### 4. Surrogate Training
+### 4. Surrogate Training*
+In this section, we adapt the AirfRANS dataset and framework (https://github.com/Extrality/AirfRANS) to facilitate a two-stage training process. Our modifications incorporate global features and narrow the model's objective to focus specifically on surface pressure prediction.
 
-Navigate to the `Surrogate_Models` folder to train the downstream predictors. These notebooks load the pre-computed features from the `extracted_features/` folder and integrate them into the surrogate architectures.
-![alt text](pngs/pipeline.png)
+Navigate to the `Surrogate_Models` folder to train the downstream predictors. The main notebook, to perform all trainings, is run.ipynb. This notebook loads the pre-computed features from the `extracted_features/` folder and integrates them into the surrogate architectures.
 
 ## Author
 
