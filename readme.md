@@ -89,7 +89,7 @@ Run `pointmae_TSNE.ipynb` or `pointnet_TSNE.ipynb`. These notebooks process the 
 * **Output Folder**: `extracted_features/`
 * **Analysis**: `compare_tsne.ipynb` allows for the comparison of extracted airfoil features against the original ShapeNet distribution.
 
-### 4. Surrogate Training*
+### 4. Surrogate Training
 In this section, we adapt the AirfRANS dataset and framework (https://github.com/Extrality/AirfRANS) to facilitate a two-stage training process. Our modifications incorporate global features and narrow the model's objective to focus specifically on surface pressure prediction.
 
 Navigate to the `Surrogate_Models` folder to train the downstream predictors. The main notebook, to perform all trainings, is run.ipynb. This notebook loads the pre-computed features from the `extracted_features/` folder and integrates them into the surrogate architectures.
